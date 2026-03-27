@@ -18,7 +18,9 @@ export default function WinnersPage() {
 
   useEffect(() => {
     seedDemoData();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setWinners(getAllWinners());
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHackathons(getHackathons());
   }, []);
 

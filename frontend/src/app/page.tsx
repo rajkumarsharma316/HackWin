@@ -21,8 +21,10 @@ export default function HomePage() {
 
   useEffect(() => {
     seedDemoData();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStats(getStats());
     const all = getAllWinners();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRecentWinners(all.slice(-4).reverse());
   }, []);
 

@@ -46,10 +46,29 @@ export interface Stats {
 // SOROBAN MODE — calls the real deployed contract
 // ═════════════════════════════════════════════════════════════════════════
 
+interface RawHackathon {
+  id: bigint | number;
+  name: string;
+  date: string;
+  organizer: string;
+  winner_count: bigint | number;
+}
+
+interface RawWinner {
+  wallet: string;
+  name: string;
+  project: string;
+  hackathon_id: bigint | number;
+  hackathon_name: string;
+  prize_xlm: bigint | number;
+  rank: bigint | number;
+  timestamp: bigint | number;
+}
+
 async function soroban_getHackathons(): Promise<Hackathon[]> {
   const result = await callReadOnly("get_hackathons");
   if (!result) return [];
-  const rawData: any[] = fromScVal<any[]>(result) || [];
+  const rawData: RawHackathon[] = fromScVal<RawHackathon[]>(result) || [];
   return rawData.map(h => ({
     id: Number(h.id),
     name: h.name,
@@ -62,7 +81,7 @@ async function soroban_getHackathons(): Promise<Hackathon[]> {
 async function soroban_getWinners(hackathonId: number): Promise<Winner[]> {
   const result = await callReadOnly("get_winners", toScU64(hackathonId));
   if (!result) return [];
-  const rawData: any[] = fromScVal<any[]>(result) || [];
+  const rawData: RawWinner[] = fromScVal<RawWinner[]>(result) || [];
   return rawData.map(w => ({
     wallet: w.wallet,
     name: w.name,
@@ -78,7 +97,7 @@ async function soroban_getWinners(hackathonId: number): Promise<Winner[]> {
 async function soroban_verifyWinner(wallet: string): Promise<Winner | undefined> {
   const result = await callReadOnly("verify_winner", toScAddress(wallet));
   if (!result) return undefined;
-  const w: any = fromScVal<any>(result);
+  const w: RawWinner | null = fromScVal<RawWinner | null>(result);
   if (!w) return undefined;
   return {
     wallet: w.wallet,
@@ -95,7 +114,7 @@ async function soroban_verifyWinner(wallet: string): Promise<Winner | undefined>
 async function soroban_getStats(): Promise<Stats> {
   const result = await callReadOnly("get_stats");
   if (!result) return { totalWinners: 0, totalHackathons: 0, totalPrizeXlm: 0 };
-  const [totalWinners, totalHackathons, totalPrizeXlm] = fromScVal<[any, any, any]>(result);
+  const [totalWinners, totalHackathons, totalPrizeXlm] = fromScVal<[bigint | number, bigint | number, bigint | number]>(result);
   return {
     totalWinners: Number(totalWinners),
     totalHackathons: Number(totalHackathons),
