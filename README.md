@@ -1,114 +1,166 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Stellar-Soroban-blue?logo=stellar&logoColor=white" alt="Stellar" />
-  <img src="https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs" alt="Next.js" />
-  <img src="https://img.shields.io/badge/Rust-Soroban_SDK-orange?logo=rust" alt="Rust" />
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="License" />
-  <img src="https://img.shields.io/badge/CI/CD-GitHub_Actions-2088FF?logo=githubactions&logoColor=white" alt="CI/CD" />
-</p>
+# HackWin 🏆
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen) ![Code Quality](https://img.shields.io/badge/code%20quality-A-blue)
 
-# 🏆 HackWin — On-Chain Hackathon Winner Registry
+## Project Description
+HackWin is an on-chain Hackathon Winner Registry built on the Stellar blockchain. It uses a Soroban smart contract to permanently record hackathon winners in a tamper-proof, publicly verifiable manner — along with a modern glassmorphism web interface for admins and public users.
 
-> A decentralized DApp on **Stellar Soroban** that permanently records hackathon winners on-chain — tamper-proof, verifiable, and forever.
+## Demo Video
+<!-- Replace with your actual demo video link -->
+[HackWin Demo Video](https://hackwin.vercel.app)
 
----
+## Project Vision
+The vision of HackWin is to bring transparency and permanence to hackathon achievements by:
 
-## 📋 Table of Contents
+- recording winner data immutably on Stellar through smart contracts,
+- enabling anyone to verify a winner's credentials with just a wallet address, and
+- providing a sleek, responsive UI that makes on-chain verification accessible to everyone.
 
-- [Live Demo](#-live-demo)
-- [Screenshots](#-screenshots)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
-- [Smart Contract](#-smart-contract)
-- [Contract Addresses & Transactions](#-contract-addresses--transactions)
-- [CI/CD Pipeline](#-cicd-pipeline)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [Project Structure](#-project-structure)
-- [Usage Guide](#-usage-guide)
-- [Testing](#-testing)
-- [Deployment](#-deployment)
-- [Future Roadmap](#-future-roadmap)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Team](#-team)
+## Key Features
+- **On-chain winner registry** powered by Soroban smart contracts
+- **Public verification** — paste any Stellar wallet address to check winner status
+- **Admin dashboard** for creating hackathons and registering winners
+- **Glassmorphism UI** with dark theme, animations, and mobile responsive design
+- **Freighter wallet integration** for transaction signing
+- **Hybrid mode** — works with the deployed contract or in localStorage demo mode
+- **Real-time stats** — total winners, hackathons, and XLM prize pool
 
----
+## How It Works
+HackWin is simple but powerful. Here is how the system operates:
 
-## 🌐 Live Demo
+1. **Connect Wallet:** Admin connects their Freighter wallet on the Stellar testnet.
+2. **Create Hackathon:** Register a new hackathon event with name, date, and organizer — stored permanently on-chain.
+3. **Add Winners:** Record winners with their wallet address, project name, rank, and prize amount in XLM.
+4. **Verify Anytime:** Anyone can verify a winner by pasting their Stellar wallet address on the public Verify page.
 
-<!-- TODO: Replace with your actual deployed URL -->
-🔗 **Live App:** [https://hackwin.vercel.app](https://hackwin.vercel.app)
+**Example:** If Alice won 1st place at HackStellar 2025 with a prize of 5,000 XLM, her record lives on-chain forever and can be verified by anyone.
 
-| Platform | Status |
-|----------|--------|
-| Vercel / Netlify | [![Deploy Status](https://img.shields.io/badge/status-live-brightgreen)](#) |
-| Stellar Testnet | ✅ Connected |
+## Deployed Smart Contract Details
 
----
+### Contract ID and Transaction Hash
+| Contract           | Address / Contract ID                                      | Deployment Tx Hash |
+|--------------------|------------------------------------------------------------|--------------------|
+| HackathonRegistry  | `CDF7PK6UC76PNPX5WNWTOAQ3RG3ZZILWSTFOQANW3HYQW5MVIKIPTNKQ` | `<ADD_YOUR_DEPLOY_TX_HASH>` |
 
-## 📸 Screenshots
+### Initialize Transaction
+| Item                | Value |
+|---------------------|-------|
+| Contract Address    | `CDF7PK6UC76PNPX5WNWTOAQ3RG3ZZILWSTFOQANW3HYQW5MVIKIPTNKQ` |
+| Initialize Tx Hash  | `<ADD_YOUR_INITIALIZE_TX_HASH>` |
 
-<!-- TODO: Add actual screenshots — place images in a /screenshots folder -->
+### Block Explorer Screenshots
+Add screenshots of the deployed contract from the block explorer under `docs/screenshots/contracts/`.
 
-### Desktop View
-![Desktop Home Page](./screenshots/desktop-home.png)
+- HackathonRegistry Explorer Screenshot: ![HackathonRegistry Contract](docs/screenshots/contracts/hackathon-registry.png)
 
-### Mobile Responsive View
-![Mobile Responsive View](./screenshots/mobile-responsive.png)
+## UI Screenshots
 
-### Admin Dashboard
-![Admin Panel](./screenshots/admin-panel.png)
+### Home / Dashboard Screen:
+![Home Screen](docs/screenshots/home-screen.png)
 
-### Winner Verification
-![Verify Winner](./screenshots/verify-winner.png)
+### Admin Panel:
+![Admin Panel](docs/screenshots/admin-panel.png)
 
-> **Tip:** To capture screenshots, run the app locally → open DevTools → toggle device toolbar (Ctrl+Shift+M) → screenshot at 375px width for mobile views.
+### Winner Verification:
+![Verify Winner](docs/screenshots/verify-winner.png)
 
----
+### Mobile View:
+![Mobile View](docs/screenshots/mobile-view.png)
 
-## ✨ Features
+## Demo Link
+https://hackwin.vercel.app
 
-| Feature | Description |
-|---------|-------------|
-| 🏗️ **Create Hackathons** | Admin registers hackathon events on-chain (name, date, organizer) |
-| 🏅 **Register Winners** | Record winners with wallet, project, rank & prize in XLM |
-| 🔍 **Public Verification** | Anyone can verify a winner by pasting their Stellar wallet address |
-| 📊 **Global Stats** | Real-time total winners, hackathons, and prize pool dashboard |
-| 💼 **Wallet Integration** | Freighter wallet connect for admin operations |
-| 🎨 **Glassmorphism UI** | Modern, responsive UI with animations and dark theme |
-| 📱 **Mobile Responsive** | Fully responsive across desktop, tablet, and mobile |
-| 🔄 **Hybrid Mode** | Works with Soroban contract OR localStorage demo mode |
+## CI/CD Status
+- **Workflow:** HackWin CI/CD at `.github/workflows/ci.yml`
+- **GitHub Actions:** https://github.com/rajkumarsharma316/HackWin/actions/workflows/ci.yml
+- **Badge:** ![CI](https://github.com/rajkumarsharma316/HackWin/actions/workflows/ci.yml/badge.svg)
 
----
+## Project Setup Guide
 
-## 🛠️ Tech Stack
+### Prerequisites
+- Node.js 18+ and npm
+- Rust toolchain
+- Soroban CLI (`stellar-cli`)
+- A Stellar testnet account (fund via [Friendbot](https://friendbot.stellar.org))
+- [Freighter Wallet](https://freighter.app/) browser extension
 
-### Frontend
-| Technology | Purpose |
-|------------|---------|
-| [Next.js 16](https://nextjs.org/) | React framework with App Router |
-| [React 19](https://react.dev/) | UI component library |
-| [TypeScript](https://www.typescriptlang.org/) | Type-safe JavaScript |
-| [Stellar SDK](https://github.com/stellar/js-stellar-sdk) | Blockchain interaction |
-| [Freighter API](https://www.freighter.app/) | Wallet integration |
+### Steps
 
-### Smart Contract
-| Technology | Purpose |
-|------------|---------|
-| [Rust](https://www.rust-lang.org/) | Contract language |
-| [Soroban SDK](https://soroban.stellar.org/) | Stellar smart contract framework |
-| [Stellar Testnet](https://laboratory.stellar.org/) | Deployment network |
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/rajkumarsharma316/HackWin.git
+   cd HackWin
+   ```
 
-### DevOps
-| Technology | Purpose |
-|------------|---------|
-| [GitHub Actions](#-cicd-pipeline) | CI/CD pipeline |
-| [Vercel](#-deployment) | Frontend hosting |
+2. **Install frontend dependencies:**
+   ```bash
+   cd frontend
+   npm install
+   ```
 
----
+3. **Start the frontend:**
+   ```bash
+   npm run dev
+   ```
 
-## 🏗️ Architecture
+4. **Build smart contract (from repo root):**
+   ```bash
+   cd hackathon-registry
+   rustup target add wasm32-unknown-unknown
+   cargo build --target wasm32-unknown-unknown --release
+   ```
+
+5. **Deploy contract to Stellar testnet:**
+   ```bash
+   stellar keys generate --global deployer --network testnet
+
+   stellar contract deploy \
+     --wasm target/wasm32-unknown-unknown/release/hackathon_registry.wasm \
+     --source deployer \
+     --network testnet
+
+   # Initialize with your admin wallet address
+   stellar contract invoke \
+     --id <CONTRACT_ID> \
+     --source deployer \
+     --network testnet \
+     -- initialize --admin <YOUR_WALLET_ADDRESS>
+   ```
+
+6. **Configure environment:**
+   ```bash
+   cd frontend
+   cp .env.example .env.local
+   # Edit .env.local and set NEXT_PUBLIC_CONTRACT_ID to your deployed contract
+   ```
+
+## Testing
+Run the smart contract test suite to verify registry logic:
+
+```bash
+cd hackathon-registry
+cargo test
+```
+
+Tests cover:
+- ✅ Contract initialization
+- ✅ Hackathon creation
+- ✅ Winner registration with rank and prize
+- ✅ Winner verification by wallet address
+- ✅ Global stats validation (total_winners, total_hackathons, total_prize)
+
+## Future Scope
+- Add multi-admin support with role-based access control
+- Introduce on-chain certificate NFT minting for winners
+- Custom token rewards (SEP-41 compliant)
+- Mainnet deployment for production use
+- Winner profile pages with project links and descriptions
+- Event-driven notifications via Stellar Horizon streaming
+- IPFS integration for project documentation storage
+
+## Architecture
+HackWin follows a modular architecture separating the smart contract layer from the frontend.
+
+### System Overview
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -124,7 +176,7 @@
 │  └──────────┘ └──────────┘ └────────┘ └───────────┘  │
 │  ┌─────────────────────────────────────────────────┐  │
 │  │         contract.ts (Hybrid Data Layer)          │  │
-│  │    Soroban Mode ←→ localStorage Demo Mode       │  │
+│  │    Soroban Mode  ←→  localStorage Demo Mode      │  │
 │  └─────────────────────────────────────────────────┘  │
 └──────────────────────┬─────────────────────────────────┘
                        │ Soroban RPC
@@ -132,7 +184,7 @@
 ┌────────────────────────────────────────────────────────┐
 │           Stellar Soroban Smart Contract               │
 │  ┌──────────────────────────────────────────────────┐ │
-│  │  HackathonRegistry (Rust / soroban-sdk)          │ │
+│  │  HackathonRegistry (Rust / soroban-sdk v25)      │ │
 │  │  • initialize()      • create_hackathon()        │ │
 │  │  • add_winner()       • get_winners()            │ │
 │  │  • verify_winner()    • get_stats()              │ │
@@ -142,374 +194,27 @@
 └────────────────────────────────────────────────────────┘
 ```
 
----
-
-## 📜 Smart Contract
-
-### Contract Functions
-
-| Function | Access | Description |
-|----------|--------|-------------|
-| `initialize(admin)` | One-time | Sets admin wallet address |
-| `create_hackathon(name, date, organizer)` | Admin | Creates a hackathon entry, returns ID |
-| `add_winner(hackathon_id, wallet, name, project, prize_xlm, rank)` | Admin | Records a winner on-chain |
-| `get_hackathons()` | Public | Lists all registered hackathons |
-| `get_winners(hackathon_id)` | Public | Lists winners for a hackathon |
-| `verify_winner(wallet)` | Public | Verifies if a wallet is a registered winner |
-| `get_stats()` | Public | Returns (total_winners, total_hackathons, total_prize) |
-| `get_admin()` | Public | Returns the admin address |
-
-### Data Structures
-
-```rust
-struct Hackathon { id, name, date, organizer, winner_count }
-struct Winner   { wallet, name, project, hackathon_id, hackathon_name, prize_xlm, rank, timestamp }
-```
-
----
-
-## 🔗 Contract Addresses & Transactions
-
-<!-- TODO: Update these with your actual values -->
-
-| Item | Value |
-|------|-------|
-| **Network** | Stellar Testnet |
-| **Contract ID** | `CDF7PK6UC76PNPX5WNWTOAQ3RG3ZZILWSTFOQANW3HYQW5MVIKIPTNKQ` |
-| **Deploy Tx Hash** | `<ADD_YOUR_DEPLOY_TX_HASH_HERE>` |
-| **Initialize Tx Hash** | `<ADD_YOUR_INITIALIZE_TX_HASH_HERE>` |
-| **Soroban RPC** | `https://soroban-testnet.stellar.org` |
-| **Network Passphrase** | `Test SDF Network ; September 2015` |
-
-> 🔎 View on Stellar Explorer: [stellar.expert/explorer/testnet/contract/CDF7PK6...](https://stellar.expert/explorer/testnet/contract/CDF7PK6UC76PNPX5WNWTOAQ3RG3ZZILWSTFOQANW3HYQW5MVIKIPTNKQ)
-
-**Note:** This project uses **inter-contract calls** if extended with token/pool contracts. If you deploy a custom token or liquidity pool, add their addresses here:
-
-| Token / Pool | Address |
-|--------------|---------|
-| Custom Token (if any) | `<ADD_TOKEN_ADDRESS>` |
-| Pool Address (if any) | `<ADD_POOL_ADDRESS>` |
-
----
-
-## ⚙️ CI/CD Pipeline
-
-<!-- TODO: Replace with your actual GitHub Actions badge -->
-
-[![CI/CD Pipeline](https://github.com/<YOUR_USERNAME>/hackwin/actions/workflows/ci.yml/badge.svg)](https://github.com/<YOUR_USERNAME>/hackwin/actions)
-
-### Pipeline Stages
+### Gameplay Sequence (Admin Flow)
 
 ```
-┌──────────┐    ┌──────────┐    ┌───────────┐    ┌──────────┐
-│  Lint &  │───▶│  Build   │───▶│   Test    │───▶│  Deploy  │
-│  Format  │    │ Contract │    │  Contract │    │ Frontend │
-└──────────┘    └──────────┘    └───────────┘    └──────────┘
+Admin ──► Connect Freighter Wallet
+     ──► Create Hackathon (name, date, organizer)
+     ──► Add Winner (wallet, name, project, rank, prize)
+     ──► Data stored permanently on Stellar blockchain
+
+Public ──► Visit Homepage (stats, recent winners)
+       ──► Verify Winner by wallet address
+       ──► Browse all winners and hackathons
 ```
 
-To set up CI/CD, create `.github/workflows/ci.yml`:
-
-```yaml
-name: HackWin CI/CD
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  # ── Smart Contract ─────────────────────────────
-  contract:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: wasm32-unknown-unknown
-      - name: Build Contract
-        run: |
-          cd hackathon-registry
-          cargo build --target wasm32-unknown-unknown --release
-      - name: Run Tests
-        run: |
-          cd hackathon-registry
-          cargo test
-
-  # ── Frontend ───────────────────────────────────
-  frontend:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
-      - name: Install Dependencies
-        run: cd frontend && npm ci
-      - name: Lint
-        run: cd frontend && npm run lint
-      - name: Build
-        run: cd frontend && npm run build
-
-  # ── Deploy (Vercel) ────────────────────────────
-  deploy:
-    needs: [contract, frontend]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: frontend
-```
-
-### CI/CD Screenshot / Badge
-
-<!-- TODO: Add a screenshot of your green CI/CD pipeline -->
-![CI/CD Pipeline Running](./screenshots/cicd-pipeline.png)
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Node.js** ≥ 18
-- **Rust** + `wasm32-unknown-unknown` target
-- **Stellar CLI** (`stellar-cli`)
-- **Freighter Wallet** browser extension
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/<YOUR_USERNAME>/hackwin.git
-cd hackwin
-```
-
-### 2. Smart Contract Setup
-
-```bash
-cd hackathon-registry
-
-# Add WASM target
-rustup target add wasm32-unknown-unknown
-
-# Build
-cargo build --target wasm32-unknown-unknown --release
-
-# Run tests
-cargo test
-```
-
-### 3. Deploy Contract to Testnet
-
-```bash
-# Generate a keypair (if needed)
-stellar keys generate --global deployer --network testnet
-
-# Deploy
-stellar contract deploy \
-  --wasm target/wasm32-unknown-unknown/release/hackathon_registry.wasm \
-  --source deployer \
-  --network testnet
-
-# Initialize (use the contract ID returned above)
-stellar contract invoke \
-  --id <CONTRACT_ID> \
-  --source deployer \
-  --network testnet \
-  -- initialize --admin <YOUR_WALLET_ADDRESS>
-```
-
-### 4. Frontend Setup
-
-```bash
-cd frontend
-
-# Install dependencies
-npm install
-
-# Configure environment
-cp .env.local.example .env.local
-# Edit .env.local with your contract ID
-
-# Run development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🔐 Environment Variables
-
-Create `frontend/.env.local` with:
-
-```env
-# Your deployed Soroban contract address (starts with C...)
-NEXT_PUBLIC_CONTRACT_ID=CDF7PK6UC76PNPX5WNWTOAQ3RG3ZZILWSTFOQANW3HYQW5MVIKIPTNKQ
-
-# Soroban RPC URL (testnet by default)
-NEXT_PUBLIC_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org
-
-# Network passphrase
-NEXT_PUBLIC_NETWORK_PASSPHRASE=Test SDF Network ; September 2015
-```
-
-> When `NEXT_PUBLIC_CONTRACT_ID` is empty, the app automatically runs in **Demo Mode** using localStorage.
-
----
-
-## 📁 Project Structure
-
-```
-hackwin/
-├── hackathon-registry/          ← Soroban Smart Contract
-│   ├── contracts/
-│   │   └── hackathon-registry/
-│   │       └── src/
-│   │           └── lib.rs       ← Contract logic (Rust)
-│   ├── Cargo.toml
-│   └── Cargo.lock
-│
-├── frontend/                    ← Next.js Frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── page.tsx         ← Home page (hero, stats, recent winners)
-│   │   │   ├── admin/           ← Admin dashboard (create hackathon, add winner)
-│   │   │   ├── verify/          ← Public winner verification
-│   │   │   ├── winners/         ← All winners listing
-│   │   │   ├── winner/          ← Individual winner detail
-│   │   │   ├── hackathon/       ← Hackathon detail page
-│   │   │   ├── layout.tsx       ← Root layout
-│   │   │   └── globals.css      ← Glassmorphism design system
-│   │   ├── components/
-│   │   │   └── Navbar.tsx       ← Navigation bar
-│   │   └── lib/
-│   │       ├── contract.ts      ← Hybrid data layer (Soroban ↔ localStorage)
-│   │       ├── soroban.ts       ← Soroban RPC helpers
-│   │       └── freighter.ts     ← Freighter wallet integration
-│   ├── .env.local
-│   ├── package.json
-│   └── next.config.ts
-│
-├── .github/
-│   └── workflows/
-│       └── ci.yml               ← CI/CD pipeline
-│
-├── screenshots/                 ← App screenshots for README
-└── README.md                    ← This file
-```
-
----
-
-## 📖 Usage Guide
-
-### For Admins
-1. Install [Freighter Wallet](https://freighter.app/) and switch to **Testnet**
-2. Navigate to `/admin`
-3. Connect your wallet (must match the initialized admin address)
-4. **Create Hackathon** → Fill in name, date, and organizer
-5. **Add Winner** → Select hackathon, enter winner details
-
-### For Public Users
-1. Visit the homepage to see stats & recent winners
-2. Browse `/winners` to see all registered winners
-3. Go to `/verify` → paste any Stellar wallet address to check if they are a registered winner
-
----
-
-## 🧪 Testing
-
-### Smart Contract Tests
-
-```bash
-cd hackathon-registry
-cargo test
-```
-
-The contract includes a comprehensive `test_full_flow` test covering:
-- ✅ Contract initialization
-- ✅ Hackathon creation
-- ✅ Winner registration
-- ✅ Winner verification
-- ✅ Global stats validation
-
-### Frontend Lint
-
-```bash
-cd frontend
-npm run lint
-```
-
-### Frontend Build Check
-
-```bash
-cd frontend
-npm run build
-```
-
----
-
-## 🌍 Deployment
-
-### Frontend → Vercel
-
-1. Push code to GitHub
-2. Import the repo on [vercel.com](https://vercel.com)
-3. Set **Root Directory** to `frontend`
-4. Add environment variables in Vercel dashboard
-5. Deploy!
-
-### Smart Contract → Stellar Testnet
-
-See [Getting Started → Deploy Contract](#3-deploy-contract-to-testnet) section above.
-
----
-
-## 🗺️ Future Roadmap
-
-- [ ] Multi-admin support with role-based access
-- [ ] On-chain certificate NFT minting for winners
-- [ ] Custom token rewards (SEP-41 compliant)
-- [ ] Mainnet deployment
-- [ ] Winner profile pages with project links
-- [ ] Event-driven notifications via Stellar Horizon streaming
-- [ ] IPFS integration for project documentation storage
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👥 Team
-
-<!-- TODO: Add your team info -->
-
-| Name | Role | GitHub |
-|------|------|--------|
-| Your Name | Full Stack Developer | [@yourusername](https://github.com/yourusername) |
-
----
-
-<p align="center">
-  Built with ❤️ on <a href="https://stellar.org">Stellar</a> using <a href="https://soroban.stellar.org">Soroban</a> smart contracts.
-</p>
+## Tech Stack
+- **Soroban Smart Contracts** (Rust)
+- **React 19** + **Next.js 16** (App Router)
+- **Stellar SDK** v14
+- **Freighter Wallet API** v6
+- **CSS** (Glassmorphism Design System)
+- **GitHub Actions** (CI/CD)
+- **Vercel** (Deployment)
+
+## License
+MIT
