@@ -61,6 +61,11 @@ HackWin makes hackathon achievements trustworthy and permanent by:
 ## Demo Link
 https://hackwin.vercel.app
 
+##Video
+
+https://github.com/user-attachments/assets/35bc4ee1-fba8-473a-9a0c-0e03f5d5bdab
+
+
 ## CI/CD Status
 - **Workflow:** HackWin CI/CD at `.github/workflows/ci.yml`
 - **GitHub Actions:** https://github.com/rajkumarsharma316/HackWin/actions/workflows/ci.yml
