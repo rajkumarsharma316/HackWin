@@ -49,27 +49,58 @@ export interface Stats {
 async function soroban_getHackathons(): Promise<Hackathon[]> {
   const result = await callReadOnly("get_hackathons");
   if (!result) return [];
-  return fromScVal<Hackathon[]>(result);
+  const rawData: any[] = fromScVal<any[]>(result) || [];
+  return rawData.map(h => ({
+    id: Number(h.id),
+    name: h.name,
+    date: h.date,
+    organizer: h.organizer,
+    winnerCount: Number(h.winner_count)
+  }));
 }
 
 async function soroban_getWinners(hackathonId: number): Promise<Winner[]> {
   const result = await callReadOnly("get_winners", toScU64(hackathonId));
   if (!result) return [];
-  return fromScVal<Winner[]>(result);
+  const rawData: any[] = fromScVal<any[]>(result) || [];
+  return rawData.map(w => ({
+    wallet: w.wallet,
+    name: w.name,
+    project: w.project,
+    hackathonId: Number(w.hackathon_id),
+    hackathonName: w.hackathon_name,
+    prizeXlm: Number(w.prize_xlm),
+    rank: Number(w.rank),
+    timestamp: Number(w.timestamp)
+  }));
 }
 
 async function soroban_verifyWinner(wallet: string): Promise<Winner | undefined> {
   const result = await callReadOnly("verify_winner", toScAddress(wallet));
   if (!result) return undefined;
-  const val = fromScVal<Winner | null>(result);
-  return val ?? undefined;
+  const w: any = fromScVal<any>(result);
+  if (!w) return undefined;
+  return {
+    wallet: w.wallet,
+    name: w.name,
+    project: w.project,
+    hackathonId: Number(w.hackathon_id),
+    hackathonName: w.hackathon_name,
+    prizeXlm: Number(w.prize_xlm),
+    rank: Number(w.rank),
+    timestamp: Number(w.timestamp)
+  };
 }
 
 async function soroban_getStats(): Promise<Stats> {
   const result = await callReadOnly("get_stats");
   if (!result) return { totalWinners: 0, totalHackathons: 0, totalPrizeXlm: 0 };
-  const [totalWinners, totalHackathons, totalPrizeXlm] = fromScVal<[number, number, number]>(result);
-  return { totalWinners, totalHackathons, totalPrizeXlm };
+  const [totalWinners, totalHackathons, totalPrizeXlm] = fromScVal<[any, any, any]>(result);
+  return {
+    totalWinners: Number(totalWinners),
+    totalHackathons: Number(totalHackathons),
+    totalPrizeXlm: Number(totalPrizeXlm)
+  };
 }
 
 async function soroban_getAdmin(): Promise<string | null> {

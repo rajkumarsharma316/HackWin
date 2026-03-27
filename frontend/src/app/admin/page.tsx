@@ -8,6 +8,9 @@ import {
   isAdmin,
   getHackathons,
   getAllWinners,
+  fetchAdmin,
+  fetchHackathons,
+  fetchAllWinners,
   seedDemoData,
   createHackathonOnChain,
   addWinnerOnChain,
@@ -41,11 +44,26 @@ export default function AdminPage() {
   const [winRank, setWinRank] = useState("");
   const [winStatus, setWinStatus] = useState<{ type: "success" | "error"; msg: string } | null>(null);
 
-  const refresh = useCallback(() => {
+  const refresh = useCallback(async () => {
+    // Optimistic UI updates from sync cache
     setHackathons(getHackathons());
     setWinners(getAllWinners());
     setAdminState(getAdmin());
-  }, []);
+
+    // Fetch live on-chain data to ensure we don't act on stale local storage
+    if (onChain) {
+      try {
+        const liveAdmin = await fetchAdmin();
+        setAdminState(liveAdmin);
+        const liveHacks = await fetchHackathons();
+        setHackathons(liveHacks);
+        const liveWinners = await fetchAllWinners();
+        setWinners(liveWinners);
+      } catch (err) {
+        console.error("Failed to fetch on-chain data during refresh:", err);
+      }
+    }
+  }, [onChain]);
 
   useEffect(() => {
     // Only seed demo data when NOT connected to a real contract
@@ -67,6 +85,12 @@ export default function AdminPage() {
     setLoading(true);
     try {
       if (onChain) {
+        const liveAdmin = await fetchAdmin();
+        if (liveAdmin) {
+          // Already initialized by someone else (or us previously)
+          setAdminState(liveAdmin);
+          return;
+        }
         await initializeAdmin(wallet);
       } else {
         setAdmin(wallet);
