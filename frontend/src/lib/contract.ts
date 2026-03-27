@@ -83,7 +83,8 @@ async function soroban_getAdmin(): Promise<string | null> {
 }
 
 async function soroban_initialize(adminWallet: string): Promise<void> {
-  await callWrite(adminWallet, "initialize", toScAddress(adminWallet));
+  const { TOKEN_CONTRACT_ID } = await import("./soroban");
+  await callWrite(adminWallet, "initialize", toScAddress(adminWallet), toScAddress(TOKEN_CONTRACT_ID));
 }
 
 async function soroban_createHackathon(
@@ -93,10 +94,11 @@ async function soroban_createHackathon(
     adminWallet, "create_hackathon",
     toScString(name), toScString(date), toScString(organizer)
   );
+  console.log("create_hackathon result:", JSON.stringify(result, null, 2));
   if (result.status === "SUCCESS" && result.returnValue) {
     return fromScVal<number>(result.returnValue);
   }
-  throw new Error("create_hackathon failed");
+  throw new Error(`create_hackathon failed with status: ${result.status}`);
 }
 
 async function soroban_addWinner(

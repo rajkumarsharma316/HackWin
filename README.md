@@ -34,14 +34,14 @@ HackWin makes hackathon achievements trustworthy and permanent by:
 ### Contract IDs and Transaction Hashes
 | Contract           | Address / Contract ID                                      | Deployment Tx Hash |
 |--------------------|------------------------------------------------------------|--------------------|
-| HackathonRegistry  | `CDF7PK6UC76PNPX5WNWTOAQ3RG3ZZILWSTFOQANW3HYQW5MVIKIPTNKQ` | `<ADD_DEPLOY_TX_HASH>` |
-| HackWinToken (HWT) | `<ADD_TOKEN_CONTRACT_ID>`                                   | `<ADD_TOKEN_DEPLOY_TX_HASH>` |
+| HackathonRegistry  | `CAPX7KIW3GJZSIQPE74B2NRGD5AVPWYTGXZN7YSY3SHMFXEART34ETD2` | `56dea41e4f56e792b936493e1ee422dd5137f318c5854d6b88561c40e8b47af4` |
+| HackWinToken (HWT) | `CDDAXR3COXYDMKXTRMZCLNNHXB4ZZFMPGOVWN4SLNSIAN6JBT56M3DRC` | `2afa1ed11616081df6061c0f3ec7a3b76b1abc83c8920b78acb10cdf381d4ecb` |
 
 ### Token / Pool Address
 | Item | Value |
 |------|-------|
-| Token Address | `<ADD_TOKEN_CONTRACT_ID>` |
-| Initialize Tx Hash | `<ADD_TOKEN_INIT_TX_HASH>` |
+| Token Address | `CDDAXR3COXYDMKXTRMZCLNNHXB4ZZFMPGOVWN4SLNSIAN6JBT56M3DRC` |
+| Initialize Tx Hash | `67e3f173d62742a320c93d6b72ad71e8ed1defd9118769489c067384fa7e7f25` |
 
 ### Block Explorer Screenshots
 
