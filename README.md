@@ -44,10 +44,11 @@ HackWin makes hackathon achievements trustworthy and permanent by:
 | Initialize Tx Hash | `<ADD_TOKEN_INIT_TX_HASH>` |
 
 ### Block Explorer Screenshots
-Add screenshots of each deployed contract from the block explorer under `docs/screenshots/contracts/`.
 
-- HackathonRegistry Explorer Screenshot: ![HackathonRegistry Contract](docs/screenshots/contracts/hackathon-registry.png)
+- HackathonRegistry Explorer Screenshot: ![HackathonRegistry Contract](docs/screenshots/contracts/image.png)
 - HackWinToken Explorer Screenshot: ![HackWinToken Contract](docs/screenshots/contracts/hackwin-token.png)
+
+
 
 ## UI Screenshots
 
