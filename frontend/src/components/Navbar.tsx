@@ -33,7 +33,7 @@ export default function Navbar() {
     <nav className="navbar">
       <Link href="/" className="navbar-brand">
         <span className="trophy">🏆</span>
-        <span>HackWin</span>
+        <span>HackWi</span>
       </Link>
 
       {/* Hamburger Button */}
