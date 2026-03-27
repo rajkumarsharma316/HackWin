@@ -13,6 +13,18 @@ export const NETWORK_PASSPHRASE =
   process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE || "Test SDF Network ; September 2015";
 export const CONTRACT_ID =
   process.env.NEXT_PUBLIC_CONTRACT_ID || "";
+export const TOKEN_CONTRACT_ID =
+  process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ID || "";
+
+// Returns true if a token contract ID is configured
+export function isTokenDeployed(): boolean {
+  return TOKEN_CONTRACT_ID.length > 0;
+}
+
+export function getTokenContract(): StellarSdk.Contract {
+  if (!TOKEN_CONTRACT_ID) throw new Error("TOKEN_CONTRACT_ID is not set");
+  return new StellarSdk.Contract(TOKEN_CONTRACT_ID);
+}
 
 // Returns true if a contract ID is configured (i.e., contract is deployed)
 export function isContractDeployed(): boolean {

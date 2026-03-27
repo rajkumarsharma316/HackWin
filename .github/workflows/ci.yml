@@ -28,12 +28,17 @@ jobs:
             hackathon-registry/target
           key: ${{ runner.os }}-cargo-${{ hashFiles('hackathon-registry/Cargo.lock') }}
 
-      - name: Build Contract (WASM)
+      - name: Build Token Contract (WASM)
         run: |
           cd hackathon-registry
-          cargo build --target wasm32-unknown-unknown --release
+          cargo build --target wasm32-unknown-unknown --release -p hackwin-token
 
-      - name: Run Contract Tests
+      - name: Build Registry Contract (WASM)
+        run: |
+          cd hackathon-registry
+          cargo build --target wasm32-unknown-unknown --release -p hackathon-registry
+
+      - name: Run All Contract Tests
         run: |
           cd hackathon-registry
           cargo test
@@ -62,6 +67,7 @@ jobs:
         run: cd frontend && npm run build
         env:
           NEXT_PUBLIC_CONTRACT_ID: ${{ secrets.NEXT_PUBLIC_CONTRACT_ID }}
+          NEXT_PUBLIC_TOKEN_CONTRACT_ID: ${{ secrets.NEXT_PUBLIC_TOKEN_CONTRACT_ID }}
           NEXT_PUBLIC_SOROBAN_RPC_URL: https://soroban-testnet.stellar.org
           NEXT_PUBLIC_NETWORK_PASSPHRASE: "Test SDF Network ; September 2015"
 

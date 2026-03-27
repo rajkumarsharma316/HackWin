@@ -1,14 +1,6 @@
-// Hackathon Winner Registry — Data Layer
-// HYBRID: Uses Soroban contract when deployed (CONTRACT_ID set), localStorage otherwise.
-//
-// To connect to the real contract, set environment variables:
-//   NEXT_PUBLIC_CONTRACT_ID=C...   (your deployed contract address)
-//   NEXT_PUBLIC_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org
-//
-// When CONTRACT_ID is empty, the app runs in demo mode with localStorage.
-
 import {
   isContractDeployed,
+  isTokenDeployed,
   callReadOnly,
   callWrite,
   toScString,
@@ -17,7 +9,11 @@ import {
   toScI128,
   toScAddress,
   fromScVal,
+  getTokenContract,
+  getServer,
+  NETWORK_PASSPHRASE,
 } from "./soroban";
+import * as StellarSdk from "@stellar/stellar-sdk";
 
 // ── Types ───────────────────────────────────────────────────────────────
 
@@ -356,3 +352,65 @@ export function seedDemoData(): void {
   addWinner(h3.id, "GQRS...DEMO7", "Grace Ndlovu", "StellarSafe — Multi-sig Wallet", 3500, 2);
   addWinner(h3.id, "GTUV...DEMO8", "Hiro Tanaka", "LumeTrack — Supply Chain", 2000, 3);
 }
+
+// ── HWT Token Functions ─────────────────────────────────────────────────
+
+export async function getTokenBalance(wallet: string): Promise<number> {
+  if (isTokenDeployed()) {
+    try {
+      const tokenContract = getTokenContract();
+      const server = getServer();
+      const sourceKeypair = StellarSdk.Keypair.random();
+      const sourceAccount = new StellarSdk.Account(sourceKeypair.publicKey(), "0");
+
+      const tx = new StellarSdk.TransactionBuilder(sourceAccount, {
+        fee: "100",
+        networkPassphrase: NETWORK_PASSPHRASE,
+      })
+        .addOperation(tokenContract.call("balance", toScAddress(wallet)))
+        .setTimeout(30)
+        .build();
+
+      const simResult = await server.simulateTransaction(tx);
+      if (StellarSdk.rpc.Api.isSimulationSuccess(simResult) && simResult.result) {
+        return Number(fromScVal<bigint>(simResult.result.retval));
+      }
+    } catch (err) {
+      console.error("Failed to fetch token balance:", err);
+    }
+  }
+  // Demo mode: calculate from prize amounts
+  const winners = getAllWinners().filter(
+    (w) => w.wallet.toLowerCase() === wallet.toLowerCase()
+  );
+  return winners.reduce((sum, w) => sum + w.prizeXlm, 0);
+}
+
+export async function getTokenTotalSupply(): Promise<number> {
+  if (isTokenDeployed()) {
+    try {
+      const tokenContract = getTokenContract();
+      const server = getServer();
+      const sourceKeypair = StellarSdk.Keypair.random();
+      const sourceAccount = new StellarSdk.Account(sourceKeypair.publicKey(), "0");
+
+      const tx = new StellarSdk.TransactionBuilder(sourceAccount, {
+        fee: "100",
+        networkPassphrase: NETWORK_PASSPHRASE,
+      })
+        .addOperation(tokenContract.call("total_supply"))
+        .setTimeout(30)
+        .build();
+
+      const simResult = await server.simulateTransaction(tx);
+      if (StellarSdk.rpc.Api.isSimulationSuccess(simResult) && simResult.result) {
+        return Number(fromScVal<bigint>(simResult.result.retval));
+      }
+    } catch (err) {
+      console.error("Failed to fetch token supply:", err);
+    }
+  }
+  // Demo mode: sum of all prizes
+  return getAllWinners().reduce((sum, w) => sum + w.prizeXlm, 0);
+}
+
