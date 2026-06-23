@@ -21,11 +21,20 @@ export default function HomePage() {
 
   useEffect(() => {
     seedDemoData();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setStats(getStats());
-    const all = getAllWinners();
-     
-    setRecentWinners(all.slice(-4).reverse());
+
+    const fetchRealTimeData = () => {
+      setStats(getStats());
+      const all = getAllWinners();
+      setRecentWinners(all.slice(-4).reverse());
+    };
+
+    // Initial fetch
+    fetchRealTimeData();
+
+    // Poll every 5 seconds for real-time updates
+    const intervalId = setInterval(fetchRealTimeData, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const rankEmoji = (rank: number) => {

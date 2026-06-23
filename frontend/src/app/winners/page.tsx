@@ -18,10 +18,16 @@ export default function WinnersPage() {
 
   useEffect(() => {
     seedDemoData();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setWinners(getAllWinners());
-     
-    setHackathons(getHackathons());
+
+    const fetchRealTimeData = () => {
+      setWinners(getAllWinners());
+      setHackathons(getHackathons());
+    };
+
+    fetchRealTimeData();
+    const intervalId = setInterval(fetchRealTimeData, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const filtered =
