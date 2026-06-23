@@ -70,6 +70,8 @@ https://github.com/user-attachments/assets/35bc4ee1-fba8-473a-9a0c-0e03f5d5bdab
 - **Workflow:** HackWin CI/CD at `.github/workflows/ci.yml`
 - **GitHub Actions:** https://github.com/rajkumarsharma316/HackWin/actions/workflows/ci.yml
 - **Badge:** ![CI](https://github.com/rajkumarsharma316/HackWin/actions/workflows/ci.yml/badge.svg)
+- <img width="1347" height="567" alt="image" src="https://github.com/user-attachments/assets/ed08db4c-7370-4f20-b773-c050ef1b86df" />
+
 
 ## Project Setup Guide
 
