@@ -144,6 +144,7 @@ Run the smart contract test suite:
 cd hackathon-registry
 cargo test
 ```
+<img width="886" height="232" alt="image" src="https://github.com/user-attachments/assets/58f64183-77c3-4500-a375-3ad001eacef8" />
 
 Tests cover:
 - ✅ Token initialization and metadata
